@@ -10,3 +10,9 @@ services:
       - ./front/src:/app/src
     ports:
       - 80:3000
+    networks:
+      - frontend
+
+networks:
+  frontend:
+    driver: bridge
