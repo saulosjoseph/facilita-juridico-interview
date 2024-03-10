@@ -1,7 +1,7 @@
-import { IClientRepository } from "../Application/interfaces/clientRepository"
-import { Filter } from "../Application/interfaces/filter"
-import { Client } from "../Domain/entities/Client"
-import SqlDb from "./sqlDb/config"
+import { Client } from "../../../Application/client/entities/Client";
+import { IClientRepository } from "../../../Application/interfaces/clientRepository"
+import { Filter } from "../../../Application/interfaces/filter"
+import SqlDb from "../config"
 
 export class ClientRepository implements IClientRepository {
     constructor(private db: SqlDb) { }

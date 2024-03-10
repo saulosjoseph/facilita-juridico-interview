@@ -1,8 +1,8 @@
-import { ClientRepository } from "../Infrastructure/clientRepository";
-import SqlDb from "../Infrastructure/sqlDb/config";
-import { CreateClientUseCase } from "./use_cases/createClient";
-import { FilterClientUseCase } from "./use_cases/filterClient";
-import { ListClientUseCase } from "./use_cases/listClient";
+import { ClientRepository } from "./sqlDb/client/clientRepository";
+import SqlDb from "./sqlDb/config";
+import { CreateClientUseCase } from "../Application/client/use_cases/createClient";
+import { FilterClientUseCase } from "../Application/client/use_cases/filterClient";
+import { ListClientUseCase } from "../Application/client/use_cases/listClient";
 
 export default class SingleTon {
     private static _instance: SingleTon

@@ -1,4 +1,4 @@
-import { Client } from "../../Domain/entities/Client";
+import { Client } from "../client/entities/Client";
 import { Filter } from "./filter";
 
 export interface IClientRepository {

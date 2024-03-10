@@ -1,6 +1,6 @@
 import express, { Express } from "express";
 import dotenv from "dotenv";
-import ClientController from "../Presentation/clientController";
+import ClientController from "../Presentation/restClientRoutes";
 
 dotenv.config();
 const app: Express = express();

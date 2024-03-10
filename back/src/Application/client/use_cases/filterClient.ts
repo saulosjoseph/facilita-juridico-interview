@@ -1,7 +1,7 @@
-import { Client } from "../../Domain/entities/Client"
-import { UseCase } from "../helpers"
-import { IClientRepository } from "../interfaces/clientRepository"
-import { Filter } from "../interfaces/filter"
+import { Client } from "../entities/Client"
+import { IClientRepository } from "../../interfaces/clientRepository"
+import { Filter } from "../../interfaces/filter"
+import { UseCase } from "../../interfaces/useCase";
 
 export class FilterClientUseCase implements UseCase {
     constructor(private clientRepository: IClientRepository) { }

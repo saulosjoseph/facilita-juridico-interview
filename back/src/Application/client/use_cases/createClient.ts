@@ -1,6 +1,6 @@
-import { Client } from "../../Domain/entities/Client"
-import { UseCase } from "../helpers"
-import { IClientRepository } from "../interfaces/clientRepository"
+import { Client } from "../entities/Client"
+import { IClientRepository } from "../../interfaces/clientRepository"
+import { UseCase } from "../../interfaces/useCase";
 
 export class CreateClientUseCase implements UseCase {
     constructor(private clientRepository: IClientRepository) { }
@@ -9,7 +9,7 @@ export class CreateClientUseCase implements UseCase {
         created: true
     }> {
         try {
-            const exec = await this.clientRepository.create(client)
+            await this.clientRepository.create(client)
             return {
                 created: true
             };
