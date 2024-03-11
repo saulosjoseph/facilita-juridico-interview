@@ -37,5 +37,11 @@
     "nodemon": "^3.1.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.2"
+  },
+  "_moduleAliases": {
+    "@domain": "dist/domain",
+    "@application": "dist/application",
+    "@infra": "dist/infra",
+    "@main": "dist/main"
   }
 }
