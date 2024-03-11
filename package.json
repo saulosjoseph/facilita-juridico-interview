@@ -1,8 +1,8 @@
 {
-  "name": "facilita-jurudico-interview",
+  "name": "facilita-juridico-interview",
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "cd front && npm run start"
+    "dev": "cd back && npm run start"
   }
 }
