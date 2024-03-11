@@ -1,12 +1,12 @@
 import { Client } from "../entities/Client"
-import { IClientRepository } from "../../interfaces/clientRepository"
-import { Filter } from "../../interfaces/filter"
-import { UseCase } from "../../interfaces/useCase";
+import { UseCase } from "../interfaces/useCase";
+import { FilterClient } from "../interfaces/filterClient";
+import { IRepository } from "../interfaces/repository";
 
 export class FilterClientUseCase implements UseCase {
-    constructor(private clientRepository: IClientRepository) { }
+    constructor(private clientRepository: IRepository) { }
   
-    async execute(filter: Array<Filter>): Promise<Array<Client>> {
+    async execute(filter: Partial<FilterClient>): Promise<Array<Client>> {
         try {
             const exec = await this.clientRepository.filter(filter)
             return exec;

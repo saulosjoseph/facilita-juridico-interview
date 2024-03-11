@@ -1,9 +1,9 @@
 import { Client } from "../entities/Client"
-import { IClientRepository } from "../../interfaces/clientRepository"
-import { UseCase } from "../../interfaces/useCase";
+import { IRepository } from "../interfaces/repository"
+import { UseCase } from "../interfaces/useCase";
 
 export class ListClientUseCase implements UseCase {
-    constructor(private clientRepository: IClientRepository) { }
+    constructor(private clientRepository: IRepository) { }
 
     async execute(): Promise<Array<Client>> {
         try {

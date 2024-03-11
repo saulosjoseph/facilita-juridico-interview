@@ -1,38 +1,55 @@
-import { Client } from "../../../Application/client/entities/Client";
-import { IClientRepository } from "../../../Application/interfaces/clientRepository"
-import { Filter } from "../../../Application/interfaces/filter"
+import { Filter } from "../../../Core/interfaces/filter"
 import SqlDb from "../config"
+import { Client } from "../../../Core/entities/Client";
+import { Address } from "../../../Core/entities/Address";
+import { FilterClient } from "../../../Core/interfaces/filterClient";
+import { IRepository } from "../../../Core/interfaces/repository";
 
-export class ClientRepository implements IClientRepository {
+export class ClientRepository implements IRepository {
     constructor(private db: SqlDb) { }
 
     public async getAll(): Promise<Array<Client>> {
-        return this.db.query("SELECT * FROM Clientes")
+        return this.db.query("SELECT * FROM Clients LEFT JOIN Addresses ON Addresses.client = Clients.id")
     }
     public async create(client: Client): Promise<Client> {
-        return this.db.query("INSERT INTO Clientes (nome, email, telefone) VALUES ($1, $2, $3);", [client.name, client.email, client.phone]);
+        const newClient = await this.db.query<Array<Client>>("INSERT INTO Clients (name, email, phone) VALUES ($1, $2, $3) RETURNING *;", [client.name, client.email, client.phone]);
+        const newAddress = await this.db.query<Address>("INSERT INTO Addresses (client, x, y) VALUES ($1, $2, $3) RETURNING *;", [newClient[0].id, client.address?.x, client.address?.y]);
+        return { ...newClient[0], address: newAddress }
     }
-    public async filter(filter: Array<Filter>): Promise<Array<Client>> {
+    public async filter(data: Partial<FilterClient>): Promise<Array<Client>> {
         let query = "";
-        query += "SELECT * FROM Clientes WHERE (";
-        filter.forEach(({ field }, index, array) => {
-            if (index === array.length - 1) {
-                query += `${field})`
+        query += "SELECT * FROM Clients LEFT JOIN Addresses ON Addresses.client = Clients.id WHERE (";
+        const filter: Array<Filter> = []
+        Object.keys(data).forEach(field => filter.push({
+            field,
+            value: data[field as keyof FilterClient]
+        }));
+        filter.forEach((fieldValue, index, array) => {
+            if (fieldValue.field === "addressX") {
+                query += `Addresses.x`
+            } else if (fieldValue.field === "addressY") {
+                query += `Addresses.y`
             } else {
-                query += `${field}, `
+                query += `Clients.${fieldValue.field}`
+            }
+            if (index === array.length - 1) {
+                query += ")"
+            } else {
+                query += ", "
             }
         })
         query += "=("
-        filter.forEach((field, index, array) => {
+        let count = 1;
+        filter.forEach((fieldValue, index, array) => {
+            query += `$${count}`
+            count++
             if (index === array.length - 1) {
-                query += `$${index + 1})`
+                query += `)`
             } else {
-                query += `$${index + 1}, `
+                query += `, `
             }
         })
-        console.log(query);
-        const values = filter.map(({ value }) => value)
-        console.log(values);
-        return this.db.query(query, values)
+        const values = filter.map(({ value }) => value);
+        return this.db.query<Array<Client>>(query, values)
     }
 }
