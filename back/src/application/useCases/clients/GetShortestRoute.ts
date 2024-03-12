@@ -30,8 +30,8 @@ export class GetShortestRouteUseCase implements GetShortestRouteInterface {
   private findNearestNeighbor(clients: Client[], route: Client[], visited: boolean[]): number {
     const lastClient = route[route.length - 1];
     return clients
+      .filter((client, index) => !visited[index])
       .map((client, index) => ({ index, distance: this.calculateDistance(lastClient.address, client.address) }))
-      .filter(({ index }) => !visited[index])
       .reduce((nearest, current) => (current.distance < nearest.distance ? current : nearest), { index: -1, distance: Infinity })
       .index;
   }
