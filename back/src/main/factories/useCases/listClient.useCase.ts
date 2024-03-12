@@ -1,7 +1,7 @@
-import { UseCase } from "../../../Core/interfaces/useCase";
-import { CreateClientUseCase } from "../../../Core/use_cases/createClient";
-import { ClientRepository } from "../../../Infrastructure/sqlDb/client/clientRepository";
+import { ListClientInterface } from "../../../application/interfaces/useCases/clients/ListClientInterface";
+import { ListClientUseCase } from "../../../application/useCases/clients/ListClient";
+import { ClientRepository } from "../../../infra/db/pg/repositories/clientRepository";
 
-export const makeListClientUseCase = (clientRepository: ClientRepository): UseCase => {
-  return new CreateClientUseCase(clientRepository);
+export const makeListClientUseCase = (clientRepository: ClientRepository): ListClientInterface => {
+  return new ListClientUseCase(clientRepository);
 };
