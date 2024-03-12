@@ -1,9 +1,7 @@
 import { Client } from "../../../../domain/entities/client";
-import { Filter } from "../../helpers/filter";
 import { UseCase } from "../UseCase";
 
-export interface FilterClientInterface
-  extends UseCase<FilterClientInterface.Request, FilterClientInterface.Response> {
+export interface FilterClientInterface extends UseCase<FilterClientInterface.Request, FilterClientInterface.Response> {
   execute(postData: FilterClientInterface.Request): Promise<FilterClientInterface.Response>;
 }
 

@@ -1,6 +1,6 @@
 export interface Address {
-    x: string;
-    y: string;
+    x: number;
+    y: number;
     createdAt: Date;
     updatedAt?: Date;
 }

@@ -1,8 +1,7 @@
 import { Client } from "../../../../domain/entities/client";
 import { UseCase } from "../UseCase";
 
-export interface ListClientInterface
-  extends UseCase<ListClientInterface.Request, ListClientInterface.Response> {
+export interface ListClientInterface extends UseCase<ListClientInterface.Request, ListClientInterface.Response> {
   execute(postData: ListClientInterface.Request): Promise<ListClientInterface.Response>;
 }
 
